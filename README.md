@@ -10,7 +10,7 @@ Citation
 
 
 ### What is ISAHESVAL ?  
-ISAHESVAL is a bioinformatics pipeline written in bash, presumed to be implemented in linux machines. It is meant for analyzing nanopore transcriptome (or amplicon cDNA) reads with respect to splicing changes at the allele level, in combination with variant data provied by the user. It receive input files of a variant file (.vcf) and nanopore long-read cDNA/direct RNA sequencing data (.bam) which is mapped already and separate the nanopore reads into alleles, and calculate isoform using a well-known isoform analysis tool, [FLAIR](https://github.com/BrooksLabUCSC/flair).  
+ISAHESVAL is a bioinformatics pipeline written in bash, presumed to be implemented in linux machines. It is meant for analyzing Oxford Nanopore cDNA or direct RNAseq transcriptome (or amplicon cDNA) reads with respect to splicing changes at the allele level, in combination with variant data provied by the user. It receive input files of a variant file (.vcf) and nanopore long-read cDNA/direct RNA sequencing data (.bam) which is mapped already and separate the nanopore reads into alleles, and calculate isoform using a well-known isoform analysis tool, [FLAIR](https://github.com/BrooksLabUCSC/flair).  
 
 ### Tested environment and tools
 #### Environment
@@ -34,6 +34,14 @@ openjdk 17.0.8.1 2023-08-24
 OpenJDK Runtime Environment (build 17.0.8.1+1-Ubuntu-0ubuntu122.04)  
 OpenJDK 64-Bit Server VM (build 17.0.8.1+1-Ubuntu-0ubuntu122.04, mixed mode, sharing)  
 picard-slim 2.27.4  
+
+### Required associated files  
+You have to download the following files from this site into your directory where the main script exists. The main script files refer to those associated files.  
+1. reference file  
+One has to create .dict file using picard based on this reference file (.fasta) like this:  
+```picard CreateSequenceDictionary -R GRCh38_no_alt_analysis_set.fasta```     
+3. associated python script_1
+4. associated python script_2
 
 ### Input requirement  
 
