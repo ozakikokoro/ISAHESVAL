@@ -53,8 +53,8 @@ that should be placed in the same folder with reference file (e.g. GRCh38_no_alt
 6. 
 
 ### Preparation of input files  
-1. a variant table (.csv) file with base filtering (general quality check), annotation with snpEff, basic filtering with bcftools (heterozygous variant only, split when in compount heterozygous, splicing region), and further annotation with spliceAI. The resulting file must be transformed into further filtering of delta score threshold (such as only splicing variants with spliceAI delta score of 0.5 or higher) by python scripts.  
-Here are example scripts for preparing such files (but may not work in your environment):  
+1. a variant table (.csv) file with base filtering (general quality check), annotation with snpEff, basic filtering with bcftools (heterozygous variant only, split when in a compound heterozygous state, splicing region), and further annotation with spliceAI. The resulting file must be transformed into further filtering of delta score threshold (such as only splicing variants with spliceAI delta score of 0.5 or higher) by python scripts.  
+Here are example scripts for preparing such files (these script may not be necessarily optimal but easy to understand and follow):  
 ```#!/bin/bash  
 #-----(1) snpEff  
 input=/your_file_dir/your_sample.hard-filtered.vcf.gz  
@@ -114,15 +114,15 @@ spliceai -I ${input5} \
 -A grch38  
   
 #conda deactivate  
-#-----(5) Filtering with spliceAI delta score threshold and converting .vcf into .csv file  
+#-----(6) Filtering with spliceAI delta score threshold and converting .vcf into .csv file  
 You need three python scripts (split.py, compare.py, and filter.py) downloaded from this site into the same folder with a shell script file. filer.py will do a standard filtering of splicing variants with spliceAI's delta score of 0.5 or higher. If you prefer to use less stringent threshold, you can replace filter.py with the filter02.py, which will keep variants with delta score of 0.2 or higher. If you rather prefer more stringent threshold, you can replace filter.py with the filter08.py, which will keep variants with delta score 0.8 or higher. Here pandas module in python must be installed for calculation. The shell script file for these three python scripts (split.py, compare.py, and filter.py), for example, contains the following scripts:  
-```# This is the script to convert spliceai_annotated vcf file (not bgzipped)  
+# This is the script to convert spliceai_annotated vcf file (not bgzipped)  
 # into csv file (chr, coordinate, ref, alt, gene_symbol,start,end)  
 # Example: chr1,12345678,A,C,ATAD3A,12345600,12345700  
 # start,end are the coordinates used for samtools view, to restrict reads onto  
 # splicing variant and its affecting bases (see details in compare.py).  
   
-# Because spliceAI score of 0.5 point (acceptor increase|descrese | donor increase | decrease) is a recommended threshold,  
+# Because spliceAI delta score of 0.5 point (acceptor increase|descrese | donor increase | decrease) is a recommended threshold,  
 # we consider 0.5 point or higher score as a standard threshold for screening.  
   
 # This script requires split.py, filter.py, compare.py in the following folders.  
@@ -134,9 +134,9 @@ input_dir=${input_file%/*}/
 output_file=${input_file%.vcf}.converted.delta05.csv  
   
 # From here, script begins  
-splitting_python_script=/same_folter_as_this_script/split.py  
-filtering_python_script=/same_folter_as_this_script/filter.py  
-comparing_python_script=/same_folter_as_this_script/compare.py  
+splitting_python_script=/same_folder_as_this_script/split.py  
+filtering_python_script=/same_folder_as_this_script/filter.py  
+comparing_python_script=/same_folder_as_this_script/compare.py  
   
 mkdir tmp  
 cd ./tmp/  
@@ -184,10 +184,14 @@ sed -i 's/ /,/g' "$output_file"
 
 rm intermediate.txt intermediate2.txt intermediate3.txt intermediate4.txt intermediate5.txt  
 cd ../  
-rmdir tmp```  
+rmdir tmp
+```  
 
-3. a variant file (.vcf) that is an intermediate file in 1. base filtering -> annotation with snpEff -> basic filtering (heterozygous variant only).
-4. a nanopore mapped reads (.bam) that is mapped against the same version of the reference genome. Typically, mapping with minimap2 is employed. Ensure that index file such as .bam.bai is also placed in the same folder with the .bam file.
+2. a variant file (.vcf) that is an intermediate file in the above scripts (1. base filtering -> annotation with snpEff -> basic filtering (heterozygous variant only)):  
+```input3=/your_file_dir/your_sample.hard-filtered_snpEff.ann.PASS_het.vcf.gz```
+  
+3. a nanopore mapped reads (.bam) that is mapped against the same version of the reference genome. Typically, mapping with minimap2 is employed. Ensure that index file such as .bam.bai is also placed in the same folder with the .bam file. Transcript reads with any modalities (direct RNA sequencing, cDNA sequencing (amplified or not), cDNA targeted amplicon sequencing) can be an input.  
+  
 
 
 ### Citation  
