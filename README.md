@@ -42,7 +42,7 @@ spliceAI 1.3.1
 
 
 ### Required associated files  
-You have to download the following files from this site into your directory where the main script exists. The main script files refer to those associated files.  
+You have to download the following files from this site or other public source into your directory where the main script exists. The main script files refer to those associated files.  
 1. reference file
    You have to create .dict file for the tool "picard" based on this reference file (.fasta) like this:    
 ```picard CreateSequenceDictionary -R GRCh38_no_alt_analysis_set.fasta```  
@@ -50,7 +50,11 @@ that should be placed in the same folder with reference file (e.g. GRCh38_no_alt
 3. associated python script_1: download from this site and place it in the same directory with the main script.  
 4. associated python script_2: downlowd from this site and place it in the same directory with the main script.  
 5. Gencode files: You have to download two [Gencode](https://www.gencodegenes.org/human/release_37.html) files such as gencode.v37.annotation.bed and gencode.v37.annotation.gtf
-6. 
+6. gene symbol - coordinate (table): A table of chr coordinate of all the genes.  
+"chr  start  end  gene_symbol" tab-delimited file.  
+7. geneid(Ensemble) genesymbol table  
+"geneid  gene_symbol" tab-delimited file. A table for converting gene_symbol to geneid (for flair input).  
+
 
 ### Preparation of input files  
 1. a variant table (.csv) file with base filtering (general quality check), annotation with snpEff, basic filtering with bcftools (heterozygous variant only, split when in a compound heterozygous state, splicing region), and further annotation with spliceAI. The resulting file must be transformed into further filtering of delta score threshold (such as only splicing variants with spliceAI delta score of 0.5 or higher) by python scripts.  
@@ -193,12 +197,6 @@ This file will be used as a variant list to search for candidate allele-informat
   
 4. a nanopore mapped reads (.bam) that is mapped against the same version of the reference genome. Typically, mapping with minimap2 is employed. Ensure that index file such as .bam.bai is also placed in the same folder with the .bam file. Transcript reads with any modalities (direct RNA sequencing, cDNA sequencing (amplified or not), cDNA targeted amplicon sequencing) can be an input.  
   
-5. gene symbol - coordinate (table)  
-A table of chr coordinate of all the genes  
-chr start end gene_symbol, tab-delimited file  
-  
-7. geneid(Ensemble) genesymbol table  
-geneid"/t"gene_symbol table for converting gene_symbol to geneid (for flair input)
 
 ### Citation  
 _under construction_
