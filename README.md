@@ -193,7 +193,12 @@ This file will be used as a variant list to search for candidate allele-informat
   
 4. a nanopore mapped reads (.bam) that is mapped against the same version of the reference genome. Typically, mapping with minimap2 is employed. Ensure that index file such as .bam.bai is also placed in the same folder with the .bam file. Transcript reads with any modalities (direct RNA sequencing, cDNA sequencing (amplified or not), cDNA targeted amplicon sequencing) can be an input.  
   
-
+5. gene symbol - coordinate (table)  
+A table of chr coordinate of all the genes  
+chr start end gene_symbol, tab-delimited file  
+  
+7. geneid(Ensemble) genesymbol table  
+geneid"/t"gene_symbol table for converting gene_symbol to geneid (for flair input)
 
 ### Citation  
 _under construction_
