@@ -51,9 +51,9 @@ that should be placed in the same folder with reference file (e.g. GRCh38_no_alt
 4. associated python script_2: downlowd from this site and place it in the same directory with the main script.  
 5. Gencode files: You have to download two [Gencode](https://www.gencodegenes.org/human/release_37.html) files such as gencode.v37.annotation.bed and gencode.v37.annotation.gtf
 6. gene symbol - coordinate (table): A table of chr coordinate of all the genes.  
-"chr  start  end  gene_symbol" tab-delimited file.  
+"chr  start  end  gene_symbol" tab-delimited file. You can download from [here](genome_and_gene_model).  
 7. geneid(Ensemble) genesymbol table  
-"geneid  gene_symbol" tab-delimited file. A table for converting gene_symbol to geneid (for flair input).  
+"geneid  gene_symbol" tab-delimited file. A table for converting gene_symbol to geneid (for flair input). You can download from [here](genome_and_gene_model).  
 
 
 ### Preparation of input files  
