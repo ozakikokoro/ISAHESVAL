@@ -202,7 +202,8 @@ rmdir tmp
 ```input3=/your_file_dir/your_sample.hard-filtered_snpEff.ann.PASS_het.vcf.gz```  
 This file will be used as a variant list to search for candidate allele-informative SNVs.
   
-4. a nanopore mapped reads (.bam) that is mapped against the same version of the reference genome. Typically, mapping with minimap2 is employed. Ensure that index file such as .bam.bai is also placed in the same folder with the .bam file. Transcript reads with any modalities (direct RNA sequencing, cDNA sequencing (amplified or not), cDNA targeted amplicon sequencing) can be an input.  
+4. a nanopore mapped reads (.bam) that is mapped against the same version of the reference genome above. Typically, mapping with minimap2 with “-ax splice -uf -k14” option
+is employed. Ensure that index file such as .bam.bai is also placed in the same folder with the .bam file. Transcript reads with any modalities (direct RNA sequencing, cDNA sequencing (amplified or not), cDNA targeted amplicon sequencing) can be an input.  
   
 
 ### Citation  
