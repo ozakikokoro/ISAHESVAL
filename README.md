@@ -47,13 +47,16 @@ You have to download the following files from this site or other public source i
    You have to create .dict file for the tool "picard" based on this reference file (.fasta) like this:    
 ```picard CreateSequenceDictionary -R GRCh38_no_alt_analysis_set.fasta```  
 that should be placed in the same folder with reference file (e.g. GRCh38_no_alt_analysis_set.fasta).  
-3. associated python script_1 (minimum.py): download from [this folder](python) and place it in the same directory with the main script.  
-4. associated python script_2 (test_reconsider2.py): downlowd from [this folder](python) and place it in the same directory with the main script.  
+3. python script_1 (minimum.py) associated with the main script: download from [this folder](python) and place it in the same directory with the main script.  
+4. python script_2 (test_reconsider2.py) associated with the main script: downlowd from [this folder](python) and place it in the same directory with the main script.  
 5. Gencode files: You have to download two [Gencode](https://www.gencodegenes.org/human/release_37.html) files such as gencode.v37.annotation.bed and gencode.v37.annotation.gtf
 6. gene symbol - coordinate (table): A table of chr coordinate of all the genes.  
 "chr  start  end  gene_symbol" tab-delimited file. You can download from [here](genome_and_gene_model).  
 7. geneid(Ensemble) genesymbol table  
-"geneid  gene_symbol" tab-delimited file. A table for converting gene_symbol to geneid (for flair input). You can download from [here](genome_and_gene_model).  
+"geneid  gene_symbol" tab-delimited file. A table for converting gene_symbol to geneid (for flair input). You can download from [here](genome_and_gene_model).
+8. python script_3 (compare.py) associated with preparation of input files in the step of splicing variant filtering ("(6) Filtering with spliceAI delta score threshold and converting .vcf into .csv file"): download from [this folder](python) and place it where you do preparation of input files.  
+9. python script_4 (split.py) associated with preparation of input files in the step of splicing variant filtering ("(6) Filtering with spliceAI delta score threshold and converting .vcf into .csv file"): download from [this folder](python) and place it where you do preparation of input files.  
+10. python script_5 (filter.py, filter02.py, filter08.py) associated with preparation of input files in the step of splicing variant filtering ("(6) Filtering with spliceAI delta score threshold and converting .vcf into .csv file"): download from [this folder](python) and place them where you do preparation of input files. You will use one of the three files (filter.py, filter02.py, filter08.py) for conversion/filtering depending on the wanted stringency.  
 
 
 ### Preparation of input files  
