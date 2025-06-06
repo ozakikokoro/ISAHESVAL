@@ -58,10 +58,14 @@ that should be placed in the same folder with reference file (e.g. GRCh38_no_alt
 9. python script_4 (split.py) associated with preparation of input files in the step of splicing variant filtering ("(6) Filtering with spliceAI delta score threshold and converting .vcf into .csv file"): download from [this folder](python) and place it where you do preparation of input files.  
 10. python script_5 (filter.py, filter02.py, filter08.py) associated with preparation of input files in the step of splicing variant filtering ("(6) Filtering with spliceAI delta score threshold and converting .vcf into .csv file"): download from [this folder](python) and place them where you do preparation of input files. You will use one of the three files (filter.py, filter02.py, filter08.py) for conversion/filtering depending on the wanted stringency.  
 
+### Preparation of variant files (.vcf.gz)  
+Usually, short-read whole genome sequencing data (.vcf.gz), is used. In our test, we used DRAGEN Germline (e.g. v4.0.3) for mapping and variant-calling. Only the .hard-filtered.vcf.gz and index file (.vcf.gz.tbi) are needed for the next step.  
+Default setting is used, such as:  
+```dragen -r reference -1 read1.fastq -2 read2.fastq --enable-variant-caller true --vc-emit-ref-confidence GVCF --vc-enable-vcf-output true --output-directory out_dir --output-file-prefix prefix --enable-map-align true --enable-sv true --enable-cnv true --output-format BAM --enable-map-align-output true --enable-bam-indexing true```  
 
 ### Preparation of input files  
-1. a variant table (.csv) file with base filtering (general quality check), annotation with snpEff, basic filtering with bcftools (heterozygous variant only, split when in a compound heterozygous state, splicing region), and further annotation with spliceAI. The resulting file must be transformed into further filtering of delta score threshold (such as only splicing variants with spliceAI delta score of 0.5 or higher) by python scripts.  
-Here are example scripts for preparing such files (these script may not be necessarily optimal but easy to understand and follow):  
+1. a variant table (.csv) file with base filtering (general quality check), annotation with snpEff, basic filtering with bcftools (heterozygous variant only, split when in a compound heterozygous state, splicing region), and further annotation with spliceAI. The resulting file must be transformed into further filtering of delta score threshold (such as only splicing variants with spliceAI delta score of 0.5 or higher) by python scripts. The result of step2 ("input3=/your_file_dir/your_sample.hard-filtered_snpEff.ann.PASS_het.vcf.gz") will be used (see below) for searching allele-informative SNVs.  
+Here are example scripts for preparing such files (these script may not be necessarily optimal but I wrote to make it easy to understand and follow):  
 ```#!/bin/bash  
 #-----(1) snpEff  
 input=/your_file_dir/your_sample.hard-filtered.vcf.gz  
