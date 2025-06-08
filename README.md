@@ -270,6 +270,7 @@ chr2_162279995_C_G_IFIH1	IFIH1	ENSG00000115267.9	chr2	162279995	C	G	chr2	1622723
 chr2_162279995_C_G_IFIH1	IFIH1	ENSG00000115267.9	chr2	162279995	C	G	.	.	h1	h2	1	0	2.19E-68	3.15E-66	2.26E-65	haplotype_unavailable_to_spvar_nonexonic_or_indel
 ```
   
+P-value is the lowest p-value for isoform changes analyzed by FLAIR.  
 When h1 h2 are written in the Ref/Alt of allele-informative SNV, the this line is information on whatshap created haplotype. When haplotype is created (that is, two or more allele-informative SNVs are available for this splicing variant), long-reads covering this haplotype region are all analyzed by FLAIR.  
 Haplotype information for the splicing variant are often unavailable (the last column=NA or could not be calculated because the splicing variant was intronic (non-exonic) and not on the transcript long-reads).  
 When haplotype information is available, to understand the relationship among the splicing variant and allele-informative SNVs, please look into {splicing variant id}.phased.vcf.gz file. In the .phased.vcf.gz file, which is created by whatshap, GT:PS tag is recorded, where phase 0|1 or 1|0 is written for each variant. For example, if the splicing variant and allele-informative SNV 1 have 1|0 and allele-informative SNV 2 has 0|1, then the splicing variant and allele-informative SNV1 on the same chromosome, while allele-informative SNV 2 is on the other chromosome.  
