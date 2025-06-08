@@ -231,11 +231,11 @@ Result files are contained within a directory which is automatically created (e.
 │   └── manifest.tsv  
 ├── chr8_89983743_T_C_NBN_selected.alt_2.chr8_89935041_G.NA12878-DirectRNA.pass.dedup.mm2.sort.bam (<-allele-separated reads)  
 ├── chr8_89983743_T_C_NBN_selected.alt_2.chr8_89935041_G.NA12878-DirectRNA.pass.dedup.mm2.sort.bam.bai  
-├── chr8_89983743_T_C_NBN_selected.ref_2.chr8_89935041_C.NA12878-DirectRNA.pass.dedup.mm2.sort.bam (<-allele-separted reads)  
+├── chr8_89983743_T_C_NBN_selected.ref_2.chr8_89935041_C.NA12878-DirectRNA.pass.dedup.mm2.sort.bam (<-allele-separated reads)  
 ├── chr8_89983743_T_C_NBN_selected.ref_2.chr8_89935041_C.NA12878-DirectRNA.pass.dedup.mm2.sort.bam.bai  
-├── PN_minpvalue005_bampair_corrected.tsv (<-final table correcetd by number of pairs (splicing variant and allele-informative SNV or haplotype associated))  
+├── PN_minpvalue005_bampair_corrected.tsv (<-final table corrected by number of pairs (splicing variant and allele-informative SNV or haplotype associated))  
 ├── PN_minpvalue005_spvar_corrected.tsv (<-final table corrected by number of splicing variants: main result)  
-├── PN_minpvalue005.tsv (<-final table showing splicing variant and associted allele-informative SNV or haplotype, but not corrected for multiple testing, filtered on the p-value 0.05 as the threshold for presence of isoform changes (FLAIR-calculated p-value)  
+├── PN_minpvalue005.tsv (<-final table showing splicing variant and associated allele-informative SNV or haplotype, but not corrected for multiple testing, filtered on the p-value 0.05 as the threshold for presence of isoform changes (FLAIR-calculated p-value)  
 ├── PN_minpvalue.tsv (<-final table showing splicing variant and associated allele-informative SNV or haplotype, without no filtering on the p-value of presence of isoform changes (FLAIR-calculated p-value)  
 ├── read_length_step1_fail_nonHLA.txt (<-experimental features for read-length calculation)  
 ├── read_length_step1_fail.txt  
@@ -255,6 +255,26 @@ Result files are contained within a directory which is automatically created (e.
 ├── read_length_step2.tsv  
 └── Run_report.tsv (<-final summary for the calculation)  
   
-For quick understanding of each run, please look at Run_report.tsv and PN_minpvalue005_spvar_corrected.tsv. Then take a look at respective folder containing FLAIR-generated details for each splicing variant - allele-informative SNV pair. Only folders related to pairs with p < 0.05 isoform changes remain in the result folder ("out_yyyymmdd_v2_6").  
+For quick understanding of each run, please look at Run_report.tsv and PN_minpvalue005_spvar_corrected.tsv. Then take a look at respective folder containing FLAIR-generated details for each splicing variant - allele-informative SNV pair. Only folders related to pairs with p < 0.05 isoform changes remain in the result folder ("out_yyyymmdd_v2_6").
+
+Let us see the example of the PN_minpvalue005_spvar_corrected.tsv:  
+```
+id (chr and coordinate of splicing varinat and gene symbol)	gene_symbol	Ensemble_id	chr	coordinate	ref	alt	chr_of_allele-informative_SNV	coordinate_of_allele-informative_SNV	Ref_of_allele-informative_SNV	Alt_of_allele-informative_SNV	Ref-covering_long-reads	Alt-covering_long-reads	raw_p-value	p-value_corrected_by_number_of_splicing_variants	p-value_corrected_by_number_of_splicing_variant-allele-informative_SNV_combinations	haplotype_information  
+chr12_109561243_C_T_MMAB	MMAB	ENSG00000139428.12	chr12	109561243	C	T	chr12	109573424	G	T	37	34	1.48E-06	2.12E-04	1.52E-03	NA  
+chr12_109561243_C_T_MMAB	MMAB	ENSG00000139428.12	chr12	109561243	C	T	chr12	109573425	C	T	42	31	7.14E-07	1.03E-04	7.38E-04	NA  
+chr12_109561243_C_T_MMAB	MMAB	ENSG00000139428.12	chr12	109561243	C	T	.	.	h1	h2	42	31	7.66E-11	1.10E-08	7.91E-08	spvar_is_on_1st_haplotype  
+chr19_4453238_C_T_UBXN6	UBXN6	ENSG00000167671.12	chr19	4453238	C	T	chr19	4454086	C	T	119	117	5.25E-05	7.55E-03	5.42E-02	NA  
+chr21_44908184_T_C_ITGB2	ITGB2	ENSG00000160255.18	chr21	44908184	T	C	.	.	h1	h2	119	6	3.31E-09	4.77E-07	3.42E-06	haplotype_unavailable_to_spvar_nonexonic_or_indel  
+chr2_162279995_C_G_IFIH1	IFIH1	ENSG00000115267.9	chr2	162279995	C	G	chr2	162267541	C	T	109	76	1.83E-38	2.64E-36	1.89E-35	NA  
+chr2_162279995_C_G_IFIH1	IFIH1	ENSG00000115267.9	chr2	162279995	C	G	chr2	162272314	T	C	97	103	1.19E-49	1.72E-47	1.23E-46	NA  
+chr2_162279995_C_G_IFIH1	IFIH1	ENSG00000115267.9	chr2	162279995	C	G	.	.	h1	h2	1	0	2.19E-68	3.15E-66	2.26E-65	haplotype_unavailable_to_spvar_nonexonic_or_indel
+```
+  
+When h1 h2 are written in the Ref/Alt of allele-informative SNV, the this line is information on whatshap created haplotype. When haplotype is created (that is, two or more allele-informative SNVs are available for this splicing variant), long-reads covering this haplotype region are all analyzed by FLAIR.  
+Haplotype information for the splicing variant are often unavailable (the last column=NA or could not be calculated because the splicing variant was intronic (non-exonic) and not on the transcript long-reads).  
+When haplotype information is available, to understand the relationship among the splicing variant and allele-informative SNVs, please look into {splicing variant id}.phased.vcf.gz file. In the .phased.vcf.gz file, which is created by whatshap, GT:PS tag is recorded, where phase 0|1 or 1|0 is written for each variant. For example, if the splicing variant and allele-informative SNV 1 have 1|0 and allele-informative SNV 2 has 0|1, then the splicing variant and allele-informative SNV1 on the same chromosome, while allele-informative SNV 2 is on the other chromosome.  
+  
+
+
 ### Citation  
 _under construction_
