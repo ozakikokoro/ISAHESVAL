@@ -205,6 +205,56 @@ This file will be used as a variant list to search for candidate allele-informat
 4. a nanopore mapped reads (.bam) that is mapped against the same version of the reference genome above. Typically, mapping with minimap2 with “-ax splice -uf -k14” option
 is employed. Ensure that index file such as .bam.bai is also placed in the same folder with the .bam file. Transcript reads with any modalities (direct RNA sequencing, cDNA sequencing (amplified or not), cDNA targeted amplicon sequencing) can be an input.  
   
-
+### Calculation time and Output folder/files  
+Typical calculation time: 22.6 hrs by the default parameters (input filtered by the environment described above).  
+Result files are contained within a directory which is automatically created (e.g. out_20250425_1_v2_6), as follows (e.g. excerpt, produced by analysis of GM12878 direct RNA-seq data published by [Workman et al., Nat Methods 2019](https://www.nature.com/articles/s41592-019-0617-2)):  
+├── chr8_89983743_T_C_NBN_chr8_89935041_C_G (<-splicing variant, Gene Symbol, and its associated allele-informative SNV. This folder contains FLAIR result of long-reads covering the splicing variant and allele-informative SNV(s))  
+│   ├── allele1_flair.aligned.bam  
+│   ├── allele1_flair.aligned.bam.bai  
+│   ├── allele1_flair.aligned.bed  
+│   ├── allele1_flair_all_corrected.bed  
+│   ├── allele1_flair_all_inconsistent.bed  
+│   ├── allele2_flair.aligned.bam  
+│   ├── allele2_flair.aligned.bam.bai  
+│   ├── allele2_flair.aligned.bed  
+│   ├── allele2_flair_all_corrected.bed  
+│   ├── allele2_flair_all_inconsistent.bed  
+│   ├── concat_flair_all_corrected.sort.bed  
+│   ├── diff_iso_usage_result_filter.txt  
+│   ├── diff_iso_usage_result.txt  
+│   ├── flair.counts_matrix.tsv  
+│   ├── flair_ENSG00000104320.14_isoforms.png (<-diagram of isoforms)  
+│   ├── flair_ENSG00000104320.14_usage.png (<-isoform usage, colored in accordance with the above diagram of isoforms)  
+│   ├── flair.isoforms.bed  
+│   ├── flair.isoforms.fa  
+│   ├── flair.isoforms.gtf  
+│   └── manifest.tsv  
+├── chr8_89983743_T_C_NBN_selected.alt_2.chr8_89935041_G.NA12878-DirectRNA.pass.dedup.mm2.sort.bam (<-allele-separated reads)  
+├── chr8_89983743_T_C_NBN_selected.alt_2.chr8_89935041_G.NA12878-DirectRNA.pass.dedup.mm2.sort.bam.bai  
+├── chr8_89983743_T_C_NBN_selected.ref_2.chr8_89935041_C.NA12878-DirectRNA.pass.dedup.mm2.sort.bam (<-allele-separted reads)  
+├── chr8_89983743_T_C_NBN_selected.ref_2.chr8_89935041_C.NA12878-DirectRNA.pass.dedup.mm2.sort.bam.bai  
+├── PN_minpvalue005_bampair_corrected.tsv (<-final table correcetd by number of pairs (splicing variant and allele-informative SNV or haplotype associated))  
+├── PN_minpvalue005_spvar_corrected.tsv (<-final table corrected by number of splicing variants: main result)  
+├── PN_minpvalue005.tsv (<-final table showing splicing variant and associted allele-informative SNV or haplotype, but not corrected for multiple testing, filtered on the p-value 0.05 as the threshold for presence of isoform changes (FLAIR-calculated p-value)  
+├── PN_minpvalue.tsv (<-final table showing splicing variant and associated allele-informative SNV or haplotype, without no filtering on the p-value of presence of isoform changes (FLAIR-calculated p-value)  
+├── read_length_step1_fail_nonHLA.txt (<-experimental features for read-length calculation)  
+├── read_length_step1_fail.txt  
+├── read_length_step1_haplotyped_nonHLA.txt  
+├── read_length_step1_haplotyped.txt  
+├── read_length_step1_nonHLA.tsv  
+├── read_length_step1_pass_nonHLA.txt  
+├── read_length_step1_passORhaplotyped_nonHLA.txt  
+├── read_length_step1_passORhaplotyped.txt  
+├── read_length_step1_pass.txt  
+├── read_length_step1.tsv  
+├── read_length_step2_fail_nonHLA.txt  
+├── read_length_step2_fail.txt  
+├── read_length_step2_nonHLA.tsv  
+├── read_length_step2_pass_nonHLA.txt  
+├── read_length_step2_pass.txt  
+├── read_length_step2.tsv  
+└── Run_report.tsv (<-final summary for the calculation)  
+  
+For quick understanding of each run, please look at Run_report.tsv and PN_minpvalue005_spvar_corrected.tsv. Then take a look at respective folder containing FLAIR-generated details for each splicing variant - allele-informative SNV pair. Only folders related to pairs with p < 0.05 isoform changes remain in the result folder ("out_yyyymmdd_v2_6").  
 ### Citation  
 _under construction_
