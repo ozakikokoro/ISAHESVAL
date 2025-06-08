@@ -23,6 +23,9 @@ jvarkit_jar=/your_dir/jvarkit.jar
 
 minimum_py=/your_dir/minimum.py
 read_length_py=/your_dir/test_reconsider2.py
+
+# This setting is for calculating read length
+# Keep this setting as it is
 read_length_step1_file=read_length_step1.tsv
 
 lockfile_dir=/your_dir/lockfiles/
