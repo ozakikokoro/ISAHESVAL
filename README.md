@@ -131,7 +131,12 @@ spliceai -I ${input5} \
 -A grch38  
   
 #-----(6) Filtering with spliceAI delta score threshold and converting .vcf into .csv file  
-You need three python scripts (split.py, compare.py, and filter.py) downloaded from this site into the same folder with a shell script file. filer.py will do a standard filtering of splicing variants with spliceAI's delta score of 0.5 or higher. If you prefer to use less stringent threshold, you can replace filter.py with the filter02.py, which will keep variants with delta score of 0.2 or higher. If you rather prefer more stringent threshold, you can replace filter.py with the filter08.py, which will keep variants with delta score 0.8 or higher. Here pandas module in python must be installed for calculation. The shell script file for these three python scripts (split.py, compare.py, and filter.py), for example, contains the following scripts:  
+You need three python scripts (split.py, compare.py, and filter.py) downloaded from this site into the same folder with a shell script file.  
+filer.py will do a standard filtering of splicing variants with spliceAI's delta score of 0.5 or higher. If you prefer to use less stringent threshold,  
+you can replace filter.py with the filter02.py, which will keep variants with delta score of 0.2 or higher. If you rather prefer more stringent threshold,  
+you can replace filter.py with the filter08.py, which will keep variants with delta score 0.8 or higher.  
+Here pandas module in python must be installed for calculation. The shell script file for these three python scripts (split.py, compare.py, and filter.py),  
+for example, contains the following scripts:  
 # This is the script to convert spliceai_annotated vcf file (not bgzipped)  
 # into csv file (chr, coordinate, ref, alt, gene_symbol,start,end)  
 # Example: chr1,12345678,A,C,ATAD3A,12345600,12345700  
