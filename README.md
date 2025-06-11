@@ -28,6 +28,7 @@ htslib(and bgzip, tabix) 1.16
 bcftools 1.16  
 bedtools 2.31.0  
 pyfaidx 0.7.2.2  
+pysam 0.15.3
 whatshap 1.7  
 jvarkit f576b50de  
 openjdk 17.0.8.1 2023-08-24  
