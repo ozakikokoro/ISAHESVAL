@@ -105,27 +105,28 @@ ${input3}
   
 tabix ${input3_short}.split.vcf.gz  
 #-----(4) Only variants with annotations related to "splicing"  
-line=/your_file_dir/your_sample.hard-filtered_snpEff.ann.PASS_het.split.vcf.gz  
-bcftools view -h $line > header.txt  
-bcftools view -H -O v $line | grep "splice" > ${line%.vcf.gz}.grep_splice.vcf_pre  
-cat header.txt ${line%.vcf.gz}.grep_splice.vcf_pre > ${line%.vcf.gz}.grep_splice.vcf  
-bgzip -c ${line%.vcf.gz}.grep_splice.vcf > ${line%.vcf.gz}.grep_splice.vcf.gz  
-tabix ${line%.vcf.gz}.grep_splice.vcf.gz  
-rm ${line%.vcf.gz}.grep_splice.vcf_pre header.txt  
+# IMPORTANT: This step(4) might be skipped and go to step(5).
+input4=/your_file_dir/your_sample.hard-filtered_snpEff.ann.PASS_het.split.vcf.gz  
+bcftools view -h ${input4} > header.txt  
+bcftools view -H -O v ${input4} | grep "splice" > ${input4%.vcf.gz}.grep_splice.vcf_pre  
+cat header.txt ${input4%.vcf.gz}.grep_splice.vcf_pre > ${input4%.vcf.gz}.grep_splice.vcf  
+bgzip -c ${input4%.vcf.gz}.grep_splice.vcf > ${input4%.vcf.gz}.grep_splice.vcf.gz  
+tabix ${input4%.vcf.gz}.grep_splice.vcf.gz  
+rm ${input4%.vcf.gz}.grep_splice.vcf_pre header.txt  
   
 #-----(5) SpliceAI  
 input5=/your_file_dir/your_sample.hard-filtered_snpEff.ann.PASS_het.split.grep_splice.vcf  
+# IMPORTANT: previous  
+# input4=/your_file_dir/your_sample.hard-filtered_snpEff.ann.PASS_het.split.vcf.gz  
+# might become an input. Because the previsou step (4) markedly reduce the variants (by up to 1/1000!),  
+# especially when you implement CPU-version of SpliceAI, you should not at first time skip the step(4), considering the vast computational time.  
 reference=/your_references_dir/GRCh38_no_alt_analysis_set.fasta  
-  
-# if using conda environment  
-#conda activate spliceai131  
   
 spliceai -I ${input5} \  
 -O ${input5%.vcf}.spliceai.vcf \  
 -R ${reference} \  
 -A grch38  
   
-#conda deactivate  
 #-----(6) Filtering with spliceAI delta score threshold and converting .vcf into .csv file  
 You need three python scripts (split.py, compare.py, and filter.py) downloaded from this site into the same folder with a shell script file. filer.py will do a standard filtering of splicing variants with spliceAI's delta score of 0.5 or higher. If you prefer to use less stringent threshold, you can replace filter.py with the filter02.py, which will keep variants with delta score of 0.2 or higher. If you rather prefer more stringent threshold, you can replace filter.py with the filter08.py, which will keep variants with delta score 0.8 or higher. Here pandas module in python must be installed for calculation. The shell script file for these three python scripts (split.py, compare.py, and filter.py), for example, contains the following scripts:  
 # This is the script to convert spliceai_annotated vcf file (not bgzipped)  
