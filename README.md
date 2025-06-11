@@ -118,8 +118,11 @@ rm ${input4%.vcf.gz}.grep_splice.vcf_pre header.txt
 input5=/your_file_dir/your_sample.hard-filtered_snpEff.ann.PASS_het.split.grep_splice.vcf  
 # IMPORTANT: previous  
 # input4=/your_file_dir/your_sample.hard-filtered_snpEff.ann.PASS_het.split.vcf.gz  
-# might become an input. Because the previsou step (4) markedly reduce the variants (by up to 1/1000!),  
+# might become an input in this step(5). Because the previsou step (4) markedly reduce the variants (by up to 1/1000!),  
 # especially when you implement CPU-version of SpliceAI, you should not at first time skip the step(4), considering the vast computational time.  
+# Using input4 means splicing site prediction for genome-wide variants, while using input5 means variants only in restricted regions  
+# (1-3 bases into the exon from the exon-intron junction or 3-8 bases into the intron from the junction, plus branch point defined by snpEff).  
+
 reference=/your_references_dir/GRCh38_no_alt_analysis_set.fasta  
   
 spliceai -I ${input5} \  
