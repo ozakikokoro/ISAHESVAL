@@ -295,4 +295,5 @@ chr12   109573425       .       C       T       0       PASS    KM=9.94;KFP=0;KF
 
 
 ### Citation  
-_under construction_
+Ozaki, K., Irioka, T., Noma, S. et al. Isoform analysis of heterozygous putative splicing variants at the allele level using nanopore long-read sequencing. Sci Rep 15, 29001 (2025). https://doi.org/10.1038/s41598-025-14566-z  
+https://www.nature.com/articles/s41598-025-14566-z  
