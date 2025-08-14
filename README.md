@@ -214,6 +214,14 @@ This file will be used as a variant list to search for candidate allele-informat
   
 4. a nanopore mapped reads (.bam) that is mapped against the same version of the reference genome above. Typically, mapping with minimap2 with “-ax splice -uf -k14” option
 is employed. Ensure that index file such as .bam.bai is also placed in the same folder with the .bam file. Transcript reads with any modalities (direct RNA sequencing, cDNA sequencing (amplified or not), cDNA targeted amplicon sequencing) can be an input.  
+
+
+### Main script implementation  
+Please describe the input filenames and locations in the appropriate lines of the main script "isahesval_main_v2_6.sh" (which can be donwloaded from this repository), using your text editor.  
+Then, it can be implemented in a script such as:  
+```  
+nohup bash isahesval_main_v2_6.sh > isahesval_out_yyyymmdd.out 2>&1 &  
+```  
   
 ### Calculation time and Output folder/files  
 Typical calculation time: 22.6 hrs by the default parameters (input filtered by the environment described above).  
